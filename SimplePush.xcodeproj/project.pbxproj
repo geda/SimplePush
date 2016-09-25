@@ -54,6 +54,7 @@
 		E0AACE211D97F7F600D24436 /* SimplePushUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimplePushUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0AACE251D97F7F600D24436 /* SimplePushUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplePushUITests.m; sourceTree = "<group>"; };
 		E0AACE271D97F7F600D24436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0AACE331D97F85F00D24436 /* SimplePush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimplePush.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		E0AACDFC1D97F7F600D24436 /* SimplePush */ = {
 			isa = PBXGroup;
 			children = (
+				E0AACE331D97F85F00D24436 /* SimplePush.entitlements */,
 				E0AACE001D97F7F600D24436 /* AppDelegate.h */,
 				E0AACE011D97F7F600D24436 /* AppDelegate.m */,
 				E0AACE031D97F7F600D24436 /* FirstViewController.h */,
@@ -214,6 +216,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 4J947K52AY;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					E0AACE151D97F7F600D24436 = {
 						CreatedOnToolsVersion = 8.0;
@@ -431,11 +438,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SimplePush/SimplePush.entitlements;
 				DEVELOPMENT_TEAM = 4J947K52AY;
 				INFOPLIST_FILE = SimplePush/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.creasystem.SimplePush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -443,11 +453,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SimplePush/SimplePush.entitlements;
 				DEVELOPMENT_TEAM = 4J947K52AY;
 				INFOPLIST_FILE = SimplePush/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.creasystem.SimplePush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

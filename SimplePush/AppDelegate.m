@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "FirstViewController.h"
+#import "SecondViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -17,9 +20,100 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Register the supported interaction types.
+    UIUserNotificationType types = UIUserNotificationTypeBadge |
+    UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *mySettings =
+    [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    
+    // Register for remote notifications.
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
     return YES;
 }
 
+// Handle remote notification registration.
+- (void)application:(UIApplication *)app
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+    //const void *devTokenBytes = [devToken bytes];
+    self.registered = YES;
+    
+    FirstViewController *fistVC = (FirstViewController *)[[((UITabBarController *)self.window.rootViewController) viewControllers] objectAtIndex:0];
+    
+    fistVC.deviceToken.text=[self stringWithDeviceToken:devToken];
+    
+    [self sendProviderDeviceToken:devToken]; // custom method
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    
+    if(application.applicationState == UIApplicationStateInactive) {
+        NSLog(@"Inactive");
+        //Show the view with the content of the push
+        
+    } else if (application.applicationState == UIApplicationStateBackground) {
+        
+        NSLog(@"Background");
+        
+        //Refresh the local model
+
+        
+    } else {
+        
+        NSLog(@"Active");
+        
+        //Show an in-app banner
+        
+        
+    }
+    NSLog(@"New content is available and could be fetched");
+    [self alertMe:userInfo];
+    
+    SecondViewController *secVC = (SecondViewController *)[[((UITabBarController *)self.window.rootViewController) viewControllers] objectAtIndex:1];
+
+                                   
+        
+
+}
+
+- (NSString *)stringWithDeviceToken:(NSData *)deviceToken {
+    const char *data = [deviceToken bytes];
+    NSMutableString *token = [NSMutableString string];
+    
+    for (NSUInteger i = 0; i < [deviceToken length]; i++) {
+        [token appendFormat:@"%02.2hhX", data[i]];
+    }
+    
+    return [token copy];
+}
+
+- (void)application:(UIApplication *)app
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
+}
+
+- (void) sendProviderDeviceToken:(NSData *) devToken {
+    NSLog(@"My token is: %@", devToken);
+}
+
+
+-(void) alertMe:(NSDictionary *)dict {
+    
+    NSLog(@"remote notification: %@",[dict description]);
+    NSDictionary *apsInfo = [dict objectForKey:@"aps"];
+    
+    NSString *alert = [apsInfo objectForKey:@"alert"];
+        
+    NSLog(@"Received Push Alert: %@", alert);
+        
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Notification" message: [dict description] delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+        
+    [alertView show];
+
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface FirstViewController : UIViewController {
+    
+    // MARK: Properties
+    IBOutlet UITextView *deviceToken;
+}
 
+@property (nonatomic, retain) UITextView *deviceToken;
+- (IBAction)copyToken:(id)sender;
 
 @end
 

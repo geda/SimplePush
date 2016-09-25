@@ -7,16 +7,20 @@
 //
 
 #import "FirstViewController.h"
+#import "AppDelegate.h"
 
 @interface FirstViewController ()
 
 @end
 
 @implementation FirstViewController
+@synthesize deviceToken;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
 }
 
 
@@ -26,4 +30,8 @@
 }
 
 
+- (IBAction)copyToken:(id)sender {
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString: self.deviceToken.text];
+}
 @end
