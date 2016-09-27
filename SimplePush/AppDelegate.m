@@ -30,6 +30,17 @@
     
     // Register for remote notifications.
     [[UIApplication sharedApplication] registerForRemoteNotifications];
+
+    // init notifications
+    SecondViewController *secVC = (SecondViewController *)[[((UITabBarController *)self.window.rootViewController) viewControllers] objectAtIndex:1];
+    NSDictionary *notificationPlist = [self readNotificationPlist];
+    if (notificationPlist != nil) {
+        secVC.notifications = [[NSMutableDictionary alloc] initWithDictionary:notificationPlist];
+    } else {
+        secVC.notifications = [[NSMutableDictionary alloc]init];
+        [secVC.notifications setObject:[[NSMutableArray alloc]init] forKey:@"notifications"];
+    }
+   
     
     return YES;
 }
@@ -37,8 +48,7 @@
 // Handle remote notification registration.
 - (void)application:(UIApplication *)app
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    //const void *devTokenBytes = [devToken bytes];
-    self.registered = YES;
+    
     
     FirstViewController *fistVC = (FirstViewController *)[[((UITabBarController *)self.window.rootViewController) viewControllers] objectAtIndex:0];
     
@@ -59,24 +69,50 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
         NSLog(@"Background");
         
         //Refresh the local model
-
         
     } else {
         
         NSLog(@"Active");
-        
         //Show an in-app banner
-        
-        
     }
-    NSLog(@"New content is available and could be fetched");
+   
     [self alertMe:userInfo];
     
     SecondViewController *secVC = (SecondViewController *)[[((UITabBarController *)self.window.rootViewController) viewControllers] objectAtIndex:1];
 
-                                   
-        
+    NSMutableDictionary *pushNotificationDict =  [[NSMutableDictionary alloc]initWithDictionary:userInfo];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"dd.MM.yyyy HH:mm:ss"];
+    
+    NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
+    
+    [pushNotificationDict setObject:stringFromDate forKey:@"receiveDate"];
+    
+    [[secVC.notifications objectForKey:@"notifications" ] addObject:pushNotificationDict];
+    [secVC.tableView reloadData];
+    [self persistNotificationPlist:secVC.notifications];
+    
+}
+-(NSDictionary*) readNotificationPlist {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+   
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"notifications.plist"];
+    NSLog(@"%@", plistPath);
+    NSDictionary *list = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    return list;
+}
 
+-(void) persistNotificationPlist:(NSDictionary *) notifications {
+    // save NSDictionary to plist file
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"notifications.plist"];
+    NSLog(@"%@", plistPath);
+   
+    [notifications writeToFile:plistPath atomically: YES];
 }
 
 - (NSString *)stringWithDeviceToken:(NSData *)deviceToken {

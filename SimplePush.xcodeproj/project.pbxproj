@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E00D0E441D9A90350073052B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00D0E431D9A90350073052B /* MessageUI.framework */; };
 		E0AACDFF1D97F7F600D24436 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AACDFE1D97F7F600D24436 /* main.m */; };
 		E0AACE021D97F7F600D24436 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AACE011D97F7F600D24436 /* AppDelegate.m */; };
 		E0AACE051D97F7F600D24436 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AACE041D97F7F600D24436 /* FirstViewController.m */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E00D0E431D9A90350073052B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E0AACDFA1D97F7F600D24436 /* SimplePush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplePush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0AACDFE1D97F7F600D24436 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E0AACE001D97F7F600D24436 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E00D0E441D9A90350073052B /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E00D0E421D9A90350073052B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E00D0E431D9A90350073052B /* MessageUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E0AACDF11D97F7F600D24436 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +100,7 @@
 				E0AACE191D97F7F600D24436 /* SimplePushTests */,
 				E0AACE241D97F7F600D24436 /* SimplePushUITests */,
 				E0AACDFB1D97F7F600D24436 /* Products */,
+				E00D0E421D9A90350073052B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -217,6 +229,9 @@
 						DevelopmentTeam = 4J947K52AY;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -439,6 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SimplePush/SimplePush.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 4J947K52AY;
 				INFOPLIST_FILE = SimplePush/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -454,6 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SimplePush/SimplePush.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 4J947K52AY;
 				INFOPLIST_FILE = SimplePush/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -533,6 +550,7 @@
 				E0AACE2C1D97F7F600D24436 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0AACE2D1D97F7F600D24436 /* Build configuration list for PBXNativeTarget "SimplePushTests" */ = {
 			isa = XCConfigurationList;
@@ -541,6 +559,7 @@
 				E0AACE2F1D97F7F600D24436 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0AACE301D97F7F600D24436 /* Build configuration list for PBXNativeTarget "SimplePushUITests" */ = {
 			isa = XCConfigurationList;
@@ -549,6 +568,7 @@
 				E0AACE321D97F7F600D24436 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

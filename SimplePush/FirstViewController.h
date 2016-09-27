@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface FirstViewController : UIViewController {
+@interface FirstViewController : UIViewController <MFMailComposeViewControllerDelegate>{
     
     // MARK: Properties
     IBOutlet UITextView *deviceToken;
+    IBOutlet UITextField *email;
 }
-
+@property (strong, nonatomic) IBOutlet UITextField *email;
 @property (nonatomic, retain) UITextView *deviceToken;
+
 - (IBAction)copyToken:(id)sender;
+- (IBAction)sendEmail:(id)sender;
 
 @end
 

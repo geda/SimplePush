@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SecondViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+   
+    IBOutlet UITableView *tableView;
+}
 
 
-@property (copy, nonatomic) NSArray *notifications;
+@property (retain, nonatomic) NSMutableDictionary *notifications;
+@property (retain, nonatomic) UITableView *tableView;
+
 
 @end
 

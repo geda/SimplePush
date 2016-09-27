@@ -1,7 +1,7 @@
 <?php
 
 // Put your device token here (without spaces):
-$deviceToken = '2177F8AE84A6B0D572CFD32D14925CC800A01DE72004FA17D3968F8A61AFC52B';
+$deviceToken = '895AAE606ABF9D8D76265F8A0019846C59C6BCE8B75EA0F7CFD755BE08CD9E2E';
 
 // Put your private key's passphrase here:
 $passphrase = 'SimplePush';
@@ -10,11 +10,13 @@ $passphrase = 'SimplePush';
 
 $ctx = stream_context_create();
 stream_context_set_option($ctx, 'ssl', 'local_cert', 'SimplePushCertificats_dev.pem');
+//stream_context_set_option($ctx, 'ssl', 'local_cert', 'SimplePushCertificats_prod.pem');
 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
 // Open a connection to the APNS server
 $fp = stream_socket_client(
   'ssl://gateway.sandbox.push.apple.com:2195', $err,
+ //  'ssl://gateway.push.apple.com:2195', $err,
   $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
 
 if (!$fp)
@@ -24,9 +26,9 @@ echo 'Connected to APNS' . PHP_EOL;
 
 // Create the payload body
 $body['aps'] = array(
-  'content-available' => '1',
-  'alert' => 'hello',
-  'badge' => 4,
+ 
+  'alert' => 'hello my friend, this is a real notification !',
+  'badge' => 2,
   'category' => 'priceAlert',
   );
 

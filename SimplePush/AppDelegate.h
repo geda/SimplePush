@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
-    BOOL *registered;
+
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic) BOOL registered;
-
+-(void) persistNotificationPlist:(NSDictionary *) notifications;
 @end
 
