@@ -63,20 +63,32 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     if(application.applicationState == UIApplicationStateInactive) {
         NSLog(@"Inactive");
         //Show the view with the content of the push
+        completionHandler(UIBackgroundFetchResultNewData);
+
         
     } else if (application.applicationState == UIApplicationStateBackground) {
         
         NSLog(@"Background");
-        
         //Refresh the local model
+         completionHandler(UIBackgroundFetchResultNewData);
         
     } else {
         
         NSLog(@"Active");
         //Show an in-app banner
+        completionHandler(UIBackgroundFetchResultNewData);
+
     }
-   
-    [self alertMe:userInfo];
+    NSString* contentAvailable = [NSString stringWithFormat:@"%@", [[userInfo valueForKey:@"aps"] valueForKey:@"content-available"]];
+    
+    if([contentAvailable isEqualToString:@"1"]) {
+        // do tasks
+        
+        NSLog(@"content-available is equal to 1");
+    } else {
+        // no silent: display it
+        [self alertMe:userInfo];
+    }
     
     SecondViewController *secVC = (SecondViewController *)[[((UITabBarController *)self.window.rootViewController) viewControllers] objectAtIndex:1];
 
@@ -89,6 +101,16 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     
     [pushNotificationDict setObject:stringFromDate forKey:@"receiveDate"];
     
+    if ([secVC.notifications objectForKey:@"notifications"] == nil) {
+        [secVC.notifications setObject:[[NSMutableArray alloc]init] forKey:@"notifications"];
+    }
+    
+    NSMutableArray* mutArray = [secVC.notifications objectForKey:@"notifications" ];
+    if ([mutArray count] == 0) {
+        secVC.notifications = [[NSMutableDictionary alloc]init];
+        [secVC.notifications setObject:[[NSMutableArray alloc]init] forKey:@"notifications"];
+    }
+   
     [[secVC.notifications objectForKey:@"notifications" ] addObject:pushNotificationDict];
     [secVC.tableView reloadData];
     [self persistNotificationPlist:secVC.notifications];

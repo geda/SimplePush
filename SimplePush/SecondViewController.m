@@ -79,6 +79,7 @@
         //remove the deleted object from your data source.
         //If your data source is an NSMutableArray, do this
         
+       
         [[notifications objectForKey:@"notifications"] removeObjectAtIndex:indexPath.row];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate persistNotificationPlist:notifications];
